@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: habit-tracker-backend
+    runtime: node
+    plan: standard
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm start
+    numInstances: 3
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: LOG_LEVEL
+        value: info
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX
+        value: 300
+      - key: CLIENT_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: habit-tracker-redis
+          property: connectionString
+  - type: keyvalue
+    name: habit-tracker-redis
+    region: oregon
+    plan: free
