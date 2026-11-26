@@ -21,7 +21,7 @@ services:
       - key: RATE_LIMIT_MAX
         value: 300
       - key: CLIENT_URL
-        sync: false
+        value: http://localhost:5173,https://habit-tracker-nu-pearl.vercel.app
       - key: SUPABASE_URL
         sync: false
       - key: SUPABASE_ANON_KEY
